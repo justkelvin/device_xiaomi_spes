@@ -14,6 +14,9 @@ $(call inherit-product, device/xiaomi/spes/device.mk)
 # Inherit some common Project Pixelage stuff.
 $(call inherit-product, vendor/pixelage/config/common_full_phone.mk)
 
+# MiuiCamera
+$(call inherit-product, vendor/xiaomi/miuicamera/config.mk)
+
 # Product Specifics
 PRODUCT_NAME := pixelage_spes
 PRODUCT_DEVICE := spes
