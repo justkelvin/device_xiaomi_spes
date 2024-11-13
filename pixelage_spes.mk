@@ -17,6 +17,8 @@ $(call inherit-product, vendor/pixelage/config/common_full_phone.mk)
 # MiuiCamera
 $(call inherit-product, vendor/xiaomi/miuicamera/config.mk)
 
+-include vendor/lineage-priv/keys/keys.mk
+
 # Product Specifics
 PRODUCT_NAME := pixelage_spes
 PRODUCT_DEVICE := spes
@@ -31,6 +33,8 @@ TARGET_BOOT_ANIMATION_RES := 1080
 
 # Project Pixelage Flags
 PIXELAGE_BUILDTYPE := UNOFFICIAL
+
+#Device Props
 TARGET_FACE_UNLOCK_SUPPORTED := true
 
 # Overlay
