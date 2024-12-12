@@ -221,7 +221,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.3.vendor \
     android.hardware.drm@1.4.vendor \
     android.hardware.drm-service.clearkey \
-    libcrypto_shim
+    libcrypto_shim.vendor
 
 # Fastbootd
 PRODUCT_PACKAGES += \
@@ -242,7 +242,8 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service.xiaomi \
+    android.hardware.biometrics.fingerprint-service.xiaomi \
+    android.hardware.biometrics.fingerprint@2.1.vendor \
     libvendor.goodix.hardware.biometrics.fingerprint@2.1.vendor \
     vendor.goodix.hardware.fingerprintextension@1.0.vendor \
     com.fingerprints.extension@1.0.vendor
