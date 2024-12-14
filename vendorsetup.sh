@@ -1,56 +1,150 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-GREEN="\033[0;32m"
-YELLOW="\033[1;33m"
-END="\033[0m"
+# ANSI Color and Formatting Codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+BOLD='\033[1m'
+DIM='\033[2m'
+ITALIC='\033[3m'
+UNDERLINE='\033[4m'
+RESET='\033[0m'
 
-VENDOR_BRANCH="15.0"
-KERNEL_BRANCH="NaughtySilver"
-HARDWARE_BRANCH="lineage-22.0"
-DEBUG_BRANCH="lineage-22"
-
-check_dir() {
-    if [ -d "$1" ]; then
-        echo -e "${YELLOW}• $1 already exists. Skipping cloning...${END}"
-        return 1
-    fi
-    return 0
+# Spinner Animation
+spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr="|/-\"
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [${CYAN}%c${RESET}] " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
 }
 
-echo -e "${YELLOW}Applying patches and cloning device source...${END}"
+# Logging Functions
+log_start() {
+    printf "${BOLD}${BLUE}➜${RESET} ${WHITE}%s${RESET}\n" "$1"
+}
 
-echo -e "${GREEN}• Removing conflicting Pixel headers from hardware/google/pixel/kernel_headers/Android.bp...${END}"
-rm -rf hardware/google/pixel/kernel_headers/Android.bp
+log_success() {
+    printf "${BOLD}${GREEN}✔${RESET} ${WHITE}%s${RESET}\n" "$1"
+}
 
-echo -e "${GREEN}• Removing conflicting LineageOS compat module from hardware/lineage/compat/Android.bp...${END}"
-rm -rf hardware/lineage/compat/Android.bp
+log_warning() {
+    printf "${BOLD}${YELLOW}⚠${RESET} ${WHITE}%s${RESET}\n" "$1"
+}
 
-if [ -f device/qcom/sepolicy_vndr/legacy-um/qva/vendor/bengal/legacy-ims/hal_rcsservice.te ]; then
-    echo -e "${GREEN}Switching back to legacy imsrcsd sepolicy...${END}"
-    rm -rf device/qcom/sepolicy_vndr/legacy-um/qva/vendor/bengal/ims/imsservice.te
-    cp device/qcom/sepolicy_vndr/legacy-um/qva/vendor/bengal/legacy-ims/hal_rcsservice.te device/qcom/sepolicy_vndr/legacy-um/qva/vendor/bengal/ims/hal_rcsservice.te
-else
-    echo -e "${YELLOW}• Please check your ROM source; the file for legacy imsrcsd sepolicy does not exist. Skipping this step...${END}"
-fi
+log_error() {
+    printf "${BOLD}${RED}✘${RESET} ${WHITE}%s${RESET}\n" "$1"
+}
 
-if check_dir vendor/xiaomi/spes; then
-    echo -e "${GREEN}Cloning vendor sources from spes-development (branch: ${YELLOW}$VENDOR_BRANCH${GREEN})...${END}"
-    git clone https://github.com/spes-development/vendor_xiaomi_spes -b $VENDOR_BRANCH vendor/xiaomi/spes
-fi
+log_info() {
+    printf "${BOLD}${CYAN}ℹ${RESET} ${WHITE}%s${RESET}\n" "$1"
+}
 
-if check_dir kernel/xiaomi/sm6225; then
-    echo -e "${GREEN}Cloning kernel sources from spes-development (branch: ${YELLOW}$KERNEL_BRANCH${GREEN})...${END}"
-    git clone https://github.com/spes-development/kernel_xiaomi_sm6225 --depth=1 -b $KERNEL_BRANCH kernel/xiaomi/sm6225
-fi
+# Progress Bar Function
+progress_bar() {
+    local current=$1
+    local total=$2
+    local width=50
+    local percentage=$((current * 100 / total))
+    local completed=$((width * current / total))
+    
+    printf "\r${BOLD}${BLUE}Progress:${RESET} ["
+    printf "${GREEN}%*s${RESET}" "$completed" | tr ' ' '='
+    printf "%*s" $((width - completed)) | tr ' ' ' '
+    printf "] ${YELLOW}%3d%%${RESET}" "$percentage"
+}
 
-if check_dir hardware/xiaomi; then
-    echo -e "${GREEN}Cloning hardware sources from LineageOS (branch: ${YELLOW}$HARDWARE_BRANCH${GREEN})...${END}"
-    git clone https://github.com/LineageOS/android_hardware_xiaomi -b $HARDWARE_BRANCH hardware/xiaomi
-fi
+# Advanced Check Directory Function
+check_and_clone() {
+    local dir_path=$1
+    local repo_url=$2
+    local branch=$3
+    local description=$4
 
-if check_dir hardware/samsung-ext/interfaces; then
-    echo -e "${GREEN}Cloning Debugging-Tools from spes-development (branch: ${YELLOW}$DEBUG_BRANCH${GREEN})...${END}"
-    git clone https://github.com/spes-development/hardware_samsung-extra_interfaces -b $DEBUG_BRANCH hardware/samsung-ext/interfaces
-fi
+    log_start "Checking ${description} sources..."
+    
+    if [ -d "$dir_path" ]; then
+        log_warning "• ${dir_path} already exists. Skipping cloning..."
+        return 1
+    fi
 
-echo -e "${YELLOW}All patches have been successfully applied; your device sources are now ready!${END}"
+    log_info "Cloning ${description} from ${repo_url} (branch: ${branch})"
+    
+    # Simulating clone with progress
+    (
+        git clone --progress "$repo_url" -b "$branch" "$dir_path" 2>&1 |
+        while read -r line; do
+            if [[ "$line" =~ Receiving\ objects:\ *([0-9]+)%\ \(([0-9]+)/([0-9]+)\) ]]; then
+                progress_bar "${BASH_REMATCH[1]}" 100
+            fi
+        done
+    ) & spinner $!
+
+    if [ $? -eq 0 ]; then
+        log_success "Successfully cloned ${description}"
+        return 0
+    else
+        log_error "Failed to clone ${description}"
+        return 1
+    fi
+}
+
+# Main Execution
+main() {
+    clear
+    printf "${BOLD}${MAGENTA}
+ ╔═══════════════════════════════════════╗
+ ║   Android ROM Source Preparation     ║
+ ╚═══════════════════════════════════════╝
+${RESET}\n"
+
+    # Configuration Variables
+    VENDOR_BRANCH="15.0"
+    KERNEL_BRANCH="vauxite"
+    HARDWARE_BRANCH="lineage-22.0"
+    DEBUG_BRANCH="lineage-22"
+
+    # Cleanup Steps
+    log_start "Preparing device sources..."
+    
+    log_info "Removing conflicting headers and modules"
+    rm -rf hardware/google/pixel/kernel_headers/Android.bp
+    rm -rf hardware/lineage/compat/Android.bp
+
+    # Cloning Sources
+    check_and_clone "vendor/xiaomi/spes" \
+        "https://github.com/spes-development/vendor_xiaomi_spes" \
+        "$VENDOR_BRANCH" "Vendor"
+
+    check_and_clone "kernel/xiaomi/sm6225" \
+        "https://github.com/CHRISL7/kernel_xiaomi_sm6225.git" \
+        "$KERNEL_BRANCH" "Kernel"
+
+    check_and_clone "hardware/xiaomi" \
+        "https://github.com/LineageOS/android_hardware_xiaomi" \
+        "$HARDWARE_BRANCH" "Hardware"
+
+    check_and_clone "hardware/samsung-ext/interfaces" \
+        "https://github.com/spes-development/hardware_samsung-extra_interfaces" \
+        "$DEBUG_BRANCH" "Debugging Tools"
+
+    # Final Status
+    printf "\n${BOLD}${GREEN}
+ ╔═══════════════════════════════════════╗
+ ║   Device Sources Preparation Done!    ║
+ ╚═══════════════════════════════════════╝
+${RESET}\n"
+}
+
+# Run the main function
+main
