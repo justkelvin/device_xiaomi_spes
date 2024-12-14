@@ -225,6 +225,8 @@ on property:init.svc.surfaceflinger=restarting
     stop vendor.displayfeature
 
 on property:sys.boot_completed=1
+    # Enable suspend to RAM
+    write /sys/power/mem_sleep "deep"
     # Read only one page at a time
     write /proc/sys/vm/page-cluster 0
     # Set zRAM compression algorithm to LZ4
@@ -240,9 +242,3 @@ on property:ro.boot.hwversion=*
 
 on property:vendor.fps_hal.restartimes=max
     stop vendor.fps_hal
-
-on property:ro.boot.fpsensor=gdx
-    setprop ro.vendor.fingerprint.sensor_location 1080|925|115|local:4630946773257169537
-
-on property:ro.boot.fpsensor=fpc
-    setprop ro.vendor.fingerprint.sensor_location 1080|925|115|local:4630946616659355009

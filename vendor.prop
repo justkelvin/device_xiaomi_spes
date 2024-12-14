@@ -117,9 +117,6 @@ vendor.hw.fm.init=0
 # FS-verity
 ro.apk_verity.mode=2
 
-# Fingerprint
-ro.vendor.fingerprint.type=side
-
 # FRP
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
