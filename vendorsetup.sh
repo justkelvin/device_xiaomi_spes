@@ -18,8 +18,8 @@ RESET='\033[0m'
 spinner() {
     local pid=$1
     local delay=0.1
-    local spinstr="|/-\"
-    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+    local spinstr='|/-\'
+    while kill -0 "$pid" 2>/dev/null; do
         local temp=${spinstr#?}
         printf " [${CYAN}%c${RESET}] " "$spinstr"
         local spinstr=$temp${spinstr%"$temp"}
