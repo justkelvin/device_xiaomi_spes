@@ -36,9 +36,13 @@ PIXELAGE_BUILDTYPE := UNOFFICIAL
 
 #Device Props
 TARGET_FACE_UNLOCK_SUPPORTED := true
+TARGET_SUPPORTS_QUICK_TAP := true
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-lineage
 
 # Fingerprint
-BUILD_FINGERPRINT := "Redmi/spes/spes:13/TKQ1.221114.001/V14.0.6.0.TGKMIXM:user/release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    DeviceName=spes_global \
+    BuildDesc="spes_global-user 13 TKQ1.221114.001 V816.0.8.0.TGCMIXM:user release-keys" \
+    BuildFingerprint=Redmi/spes_global/spes:13/TKQ1.221114.001/V816.0.8.0.TGCMIXM:user/release-keys
