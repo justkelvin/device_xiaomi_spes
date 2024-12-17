@@ -223,6 +223,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey \
     libcrypto_shim.vendor
 
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/vndk-core/libcrypto.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libcrypto-v34.so
+
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
