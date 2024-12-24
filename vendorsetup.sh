@@ -111,7 +111,7 @@ ${RESET}\n"
     # Configuration Variables
     VENDOR_BRANCH="15.0"
     KERNEL_BRANCH="vauxite"
-    HARDWARE_BRANCH="lineage-22.0"
+    HARDWARE_BRANCH="15"
     DEBUG_BRANCH="lineage-22"
 
     # Cleanup Steps
@@ -123,15 +123,15 @@ ${RESET}\n"
 
     # Cloning Sources
     check_and_clone "vendor/xiaomi/spes" \
-        "https://github.com/spes-development/vendor_xiaomi_spes" \
+        "git@github.com:justkelvin/vendor_xiaomi_spes.git" \
         "$VENDOR_BRANCH" "Vendor"
 
     check_and_clone "kernel/xiaomi/sm6225" \
-        "https://github.com/CHRISL7/kernel_xiaomi_sm6225.git" \
+        "git@github.com:justkelvin/kernel_xiaomi_sm6225.git" \
         "$KERNEL_BRANCH" "Kernel"
 
     check_and_clone "hardware/xiaomi" \
-        "https://github.com/LineageOS/android_hardware_xiaomi" \
+        "https://github.com/ProjectPixelage/android_hardware_xiaomi.git" \
         "$HARDWARE_BRANCH" "Hardware"
 
     check_and_clone "hardware/samsung-ext/interfaces" \
