@@ -227,6 +227,9 @@ genfscon sysfs /devices/platform/vendor/vendor:extcon_usb1/wakeup               
 genfscon sysfs /devices/platform/soc/soc:qcom,nopmi-chg/power_supply/battery/power/wakeup                                                                                                  u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc/soc:qcom,nopmi-chg/power_supply/usb/power/wakeup                                                                                                      u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/virtual/input/input1/wakeup                                                                                                                                        u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:fpc1020/wakeup                                                                                                                                    u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:fpc1020/wakeup/wakeup                                                                                                                             u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc/soc:fpc1020/wakeup/wakeup26                                                                                                                           u:object_r:sysfs_wakeup:s0
 
 #entry for usb controller
 genfscon sysfs /devices/platform/soc/4e00000.ssusb/4e00000.dwc3/udc/4e00000.dwc3 u:object_r:vendor_sysfs_usb_controller:s0
