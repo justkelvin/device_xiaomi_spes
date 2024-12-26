@@ -154,6 +154,9 @@ on boot
     chown system system /sys/class/leds/vibrator/duration
     chown system system /sys/class/leds/vibrator/activate
 
+    # Enable modernized tap to wake
+    write /sys/devices/platform/soc/4a88000.i2c/i2c-1/1-0038/fts_gesture_mode 1
+
 on boot && property:persist.vendor.usb.controller.default=*
     setprop vendor.usb.controller ${persist.vendor.usb.controller.default}
 
