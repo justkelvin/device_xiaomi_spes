@@ -855,4 +855,10 @@
          manager will disable alpha trasformation in animations where not
          strictly needed. -->
     <bool name="config_sf_limitedAlpha">true</bool>
+
+    <!-- Show battery cycle count -->
+    <bool name="config_show_battery_cycle_count" translatable="false">true</bool>
+
+    <!-- Show Force LTE_CA toggle -->
+    <bool name="config_showForceLteCaToggle" translatable="false">true</bool>
 </resources>
