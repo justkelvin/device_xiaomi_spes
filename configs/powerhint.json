@@ -243,16 +243,6 @@
       "ResetOnInit": true
     },
     {
-      "Name": "MLUclampBoost",
-      "Path": "/dev/cpuctl/nnapi-hal/cpu.uclamp.min",
-      "Values": [
-          "22.50",
-          "81.20"
-      ],
-      "DefaultIndex": 0,
-      "ResetOnInit": true
-    },
-    {
       "Name": "DDRLittleClusterMinFreq",
       "Path": "/sys/class/devfreq/soc:qcom,cpu0-cpu-ddr-lat/min_freq",
       "Values": [
