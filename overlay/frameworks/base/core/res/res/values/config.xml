@@ -861,4 +861,11 @@
 
     <!-- Show Force LTE_CA toggle -->
     <bool name="config_showForceLteCaToggle" translatable="false">true</bool>
+
+    <string name="config_screenRecorderAVCProfileLevel" translatable="false">3.1</string>
+
+     <!-- Enables or disables fading edges when marquee is enabled in TextView.
+     Off by default, since the framebuffer readback used to implement the
+     fading edges is prohibitively expensive on most GPUs. -->
+    <bool name="config_ui_enableFadingMarquee">true</bool>
 </resources>
