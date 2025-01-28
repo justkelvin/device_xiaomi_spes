@@ -120,7 +120,6 @@ ${RESET}\n"
     
     log_info "Removing conflicting headers and modules"
     rm -rf hardware/google/pixel/kernel_headers/Android.bp
-    rm -rf hardware/lineage/compat/Android.bp
 
     # Cloning Sources
     check_and_clone "vendor/xiaomi/spes" \
