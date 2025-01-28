@@ -1,6 +1,11 @@
 # Audio
+audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30
+audio.offload.video=true
+audio.sys.mute.latency.factor=2
+audio.sys.noisy.broadcast.delay=500
 audio.sys.offload.pstimeout.secs=3
+audio.sys.routing.latency=0
 ro.config.vc_call_vol_steps=11
 
 # Bluetooth
@@ -39,6 +44,13 @@ debug.sf.disable_backpressure=1
 # FUSE passthrough
 persist.sys.fuse.passthrough.enable=true
 
+# Low memory killer daemon
+ro.lmk.kill_heaviest_task=true
+ro.lmk.thrashing_limit=50
+ro.lmk.thrashing_limit_decay=25
+ro.lmk.psi_complete_stall_ms=80
+ro.lmk.psi_partial_stall_ms=50
+
 # Radio
 persist.vendor.radio.report_codec=1
 persist.vendor.radio.vdp_on_ims_cap=1
@@ -49,3 +61,8 @@ ro.telephony.block_binder_thread_on_incoming_calls=false
 persist.sys.usb.config=mtp,adb
 ro.adb.secure=0
 ro.debuggable=1
+
+# Zram
+ro.zram.first_wb_delay_mins=180
+ro.zram.mark_idle_delay_mins=60
+ro.zram.periodic_wb_delay_hours=24
