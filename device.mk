@@ -501,6 +501,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb-service.qti
 
+PRODUCT_PACKAGES += \
+    usb_compositions.conf
+
 # Vendor service manager
 PRODUCT_PACKAGES += \
     vndservicemanager
