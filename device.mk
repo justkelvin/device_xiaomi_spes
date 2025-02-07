@@ -557,3 +557,6 @@ PRODUCT_PACKAGES += \
 
 # Include debug tool
 $(call inherit-product, hardware/samsung-ext/interfaces/debug-tools/debug.mk)
+
+# ViPER4Android FX
+$(call inherit-product, packages/apps/ViPER4AndroidFX/config.mk)
