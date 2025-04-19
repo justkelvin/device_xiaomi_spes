@@ -28,6 +28,9 @@
     <string name="config_batDesCap" translatable="false">/sys/class/power_supply/bms/charge_full</string>
     <string name="config_batChargeCycle" translatable="false">/sys/class/power_supply/bms/cycle_count</string>
 
+     <!-- Show battery cycle count -->
+    <bool name="config_show_battery_cycle_count" translatable="false">true</bool>
+
     <!-- Whether to show Smooth Display feature in Settings Options -->
     <bool name="config_show_smooth_display">true</bool>
 
