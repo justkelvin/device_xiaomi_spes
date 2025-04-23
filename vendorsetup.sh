@@ -123,11 +123,11 @@ ${RESET}\n"
 
     # Cloning Sources
     check_and_clone "vendor/xiaomi/spes" \
-        "git@github.com:justkelvin/vendor_xiaomi_spes.git" \
+        "https://github.com/justkelvin/vendor_xiaomi_spes.git" \
         "$VENDOR_BRANCH" "Vendor"
 
     check_and_clone "kernel/xiaomi/sm6225" \
-        "git@github.com:justkelvin/kernel_xiaomi_sm6225.git" \
+        "https://github.com/justkelvin/kernel_xiaomi_sm6225.git" \
         "$KERNEL_BRANCH" "Kernel"
 
     check_and_clone "hardware/xiaomi" \
