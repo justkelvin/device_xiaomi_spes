@@ -684,7 +684,6 @@
       "PowerHint": "EXPENSIVE_RENDERING",
       "Node": "GPUMaxFreq",
       "Duration": 0,
-      "Value": "0"
       "Value": "1"
     },
     {
