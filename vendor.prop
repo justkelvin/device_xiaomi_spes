@@ -116,14 +116,6 @@ drm.service.enabled=true
 persist.vendor.fingerprint.type=side
 persist.vendor.fingerprint.sensor_location=1080|930|150|local:4630946773257169537,1080|930|150|local:4630946616659355009
 
-# Fling Velocity
-ro.min.fling_velocity=160
-ro.max.fling_velocity=20000
-ro.vendor.qti.cgroup_follow.enable=true 
-persist.vendor.qti.inputopts.enable=true 
-persist.vendor.qti.inputopts.movetouchslop=0.6 
-ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
-
 # FM
 vendor.hw.fm.init=0
 
